@@ -2,14 +2,13 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# Load trained model
+
 model = joblib.load("loan_model.pkl")
 
 st.title("🏦 Loan Approval Prediction App")
 
 st.write("Enter applicant details below:")
-
-# ---------------- INPUTS ---------------- #
+
 
 gender = st.selectbox("Gender", ["Male", "Female"])
 married = st.selectbox("Married", ["Yes", "No"])
@@ -26,7 +25,7 @@ credit_history = st.selectbox("Credit History", [1, 0])
 
 property_area = st.selectbox("Property Area", ["Urban", "Semiurban", "Rural"])
 
-# ---------------- ENCODING ---------------- #
+
 
 gender = 1 if gender == "Male" else 0
 married = 1 if married == "Yes" else 0
@@ -39,7 +38,7 @@ urban = 1 if property_area == "Urban" else 0
 semiurban = 1 if property_area == "Semiurban" else 0
 rural = 1 if property_area == "Rural" else 0
 
-# ---------------- PREDICTION ---------------- #
+
 
 if st.button("Predict Loan Status"):
 
@@ -59,7 +58,7 @@ if st.button("Predict Loan Status"):
     "Rural": rural
 }])
 
-    # 🔥 THIS FIXES YOUR ERROR
+    
     input_data = input_data.reindex(columns=model.feature_names_in_, fill_value=0)
 
     prediction = model.predict(input_data)
